@@ -1,8 +1,8 @@
 "use client";
 
-import NavBar from "@/contracts/NavBar";
 import { Box, Heading } from "@chakra-ui/react";
 import { useConnectWallet } from "./ConnectWalletHooks";
+import NavBar from "./NavBar";
 
 export default function Home() {
   const { account } = useConnectWallet();
