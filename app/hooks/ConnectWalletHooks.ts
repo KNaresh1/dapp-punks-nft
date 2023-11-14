@@ -10,30 +10,37 @@ const injectedConnector = new InjectedConnector({
 
 export function useConnectWallet() {
   const { connector, isActive, account } = useWeb3React();
-  const [error, setError] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
 
   const connectWallet = async () => {
     try {
+      setLoading(true);
       await connector.activate(injectedConnector);
     } catch (error) {
-      setError(`Error while connecting to wallet. ${error}`);
+      console.error(`Error while connecting to wallet. ${error}`);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    connectWallet();
-  }, []);
+    if (!isActive) {
+      setTimeout(() => {
+        connectWallet();
+      });
+    }
+  }, [isActive]);
 
   return {
     connectWallet,
-    error,
-    isConnected: isActive,
+    isActive,
     account,
+    loading,
   };
 }
 
 export function useInactiveListener(suppress: boolean = false) {
-  const { isActive, connector, provider } = useWeb3React();
+  const { isActive, connector } = useWeb3React();
   const { activate } = connector;
 
   useEffect((): any => {

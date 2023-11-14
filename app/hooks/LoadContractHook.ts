@@ -14,9 +14,12 @@ export function useLoadContract() {
   const [balance, setBalance] = useState<number>(0);
 
   const { provider, account } = useWeb3React();
+  const [loading, setLoading] = useState(false);
 
   const loadContract = async () => {
     try {
+      setLoading(true);
+
       const nft = new Contract(config[31337].nft.address, NFT_ABI, provider);
       setNFT(nft);
 
@@ -29,7 +32,9 @@ export function useLoadContract() {
       setCost(await nft.cost());
       setBalance(await nft.balanceOf(account));
     } catch (error) {
-      console.log("Error while loading nft contract. ", error);
+      console.error("Error while loading nft contract. ", error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -39,5 +44,5 @@ export function useLoadContract() {
     }
   }, [account]);
 
-  return { nft, revealTime, maxSupply, totalSupply, cost, balance };
+  return { nft, revealTime, maxSupply, totalSupply, cost, balance, loading };
 }

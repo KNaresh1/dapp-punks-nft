@@ -32,7 +32,7 @@ const Mint = ({ nft, cost }: MintProps) => {
       <form onSubmit={onSubmit}>
         <Button
           mt={4}
-          width="sm"
+          width="md"
           colorScheme="blue"
           isLoading={isSubmitting}
           type="submit"

@@ -1,6 +1,7 @@
 ## NextJS - Hardhat Template for DApp applications
-1. FrontEnd: NextJS, web3-rect, ChakraUI
-2. BackEnd: Solidity, Hardhat, ethers
+1. DApp Punks - Allows user to mint NFTs and add it to their wallet
+2. FrontEnd: NextJS, web3-rect, ChakraUI
+3. BackEnd: Solidity, Hardhat, ethers
 
 
 

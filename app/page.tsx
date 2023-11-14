@@ -2,39 +2,42 @@
 
 import { Box, Heading, SimpleGrid, Spinner } from "@chakra-ui/react";
 import Image from "next/image";
-import { useState } from "react";
 import Countdown from "react-countdown";
 import preview from "../public/preview.png";
 import { Mint, MintData, NavBar } from "./components";
 import { useConnectWallet, useLoadContract } from "./hooks";
 
 export default function Home() {
-  const [isLoading, setLoading] = useState(true);
-
-  const { account, isConnected } = useConnectWallet();
-  const { nft, revealTime, maxSupply, totalSupply, cost, balance } =
-    useLoadContract();
+  const { account, loading: walletLoading } = useConnectWallet();
+  const {
+    nft,
+    revealTime,
+    maxSupply,
+    totalSupply,
+    cost,
+    balance,
+    loading: contractLoading,
+  } = useLoadContract();
 
   return (
-    <Box textAlign="center" py={8} width="80%">
+    <Box textAlign="center" py={4} width="80%">
       <NavBar account={account} />
 
-      <Heading as="h6" size="lg" m={16}>
+      <Heading as="h6" size="lg" m={8}>
         DApp Punks
       </Heading>
 
-      {!isConnected && (
+      {walletLoading || contractLoading ? (
         <Spinner
           thickness="5px"
           emptyColor="gray.200"
           color="blue.500"
           size="xl"
         />
-      )}
-      {isConnected && (
+      ) : (
         <SimpleGrid
           columns={2}
-          mt={16}
+          mt={8}
           alignItems="center"
           justifyItems="center"
         >
@@ -45,6 +48,7 @@ export default function Home() {
                 alt="Open Punk"
                 width={400}
                 height={400}
+                priority={true}
               />
             ) : (
               <Image
