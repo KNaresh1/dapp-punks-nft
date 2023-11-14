@@ -1,12 +1,12 @@
 import { Flex, Spacer, Text } from "@chakra-ui/react";
 import Image from "next/image";
-import logo from "../public/logo.png";
+import logo from "../../public/logo.png";
 
 const NavBar = ({ account }: { account: string | undefined }) => {
   return (
     <Flex align="center" gap="2">
       <Image src={logo} alt="Logo" style={{ width: "40px", height: "40px" }} />
-      <Text fontSize="lg">DApp Template</Text>
+      <Text fontSize="lg">DApp Punks</Text>
       <Spacer />
       <Text fontSize="md">
         {account &&
