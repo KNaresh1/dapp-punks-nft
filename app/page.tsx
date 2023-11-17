@@ -1,40 +1,25 @@
 "use client";
 
-import { Box, Heading, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid } from "@chakra-ui/react";
 import Image from "next/image";
 import Countdown from "react-countdown";
 import preview from "../public/preview.png";
 import { Mint, MintData, NavBar } from "./components";
-import { useConnectWallet, useLoadContract } from "./hooks";
+import useLoadContract from "./hooks";
 
 export default function Home() {
-  const { account, loading: walletLoading } = useConnectWallet();
-  const {
-    nft,
-    revealTime,
-    maxSupply,
-    totalSupply,
-    cost,
-    balance,
-    loading: contractLoading,
-  } = useLoadContract();
+  const { nft, revealTime, maxSupply, totalSupply, cost, balance } =
+    useLoadContract();
 
   return (
-    <Box textAlign="center" py={4} width="80%">
-      <NavBar account={account} />
+    <Box textAlign="center">
+      <NavBar />
 
       <Heading as="h6" size="lg" m={8}>
         DApp Punks
       </Heading>
 
-      {walletLoading || contractLoading ? (
-        <Spinner
-          thickness="5px"
-          emptyColor="gray.200"
-          color="blue.500"
-          size="xl"
-        />
-      ) : (
+      {nft && (
         <SimpleGrid
           columns={2}
           mt={8}

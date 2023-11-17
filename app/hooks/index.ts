@@ -1,2 +1,2 @@
-export { useConnectWallet } from "./ConnectWalletHooks";
-export { useLoadContract } from "./LoadContractHook";
+export { useConnectWallet } from "./useConnect";
+export { default } from "./useLoadContract";
